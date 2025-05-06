@@ -21,6 +21,7 @@ public class AdminCompanyController {
         Company company = companyService.createCompany(request);
         ApiResponse response = ApiResponse.builder()
                 .status(HttpStatus.CREATED.value())
+                .data(company)
                 .message("Company created")
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -30,24 +31,18 @@ public class AdminCompanyController {
         Company company = companyService.updateCompany(companyId, request);
         ApiResponse response = ApiResponse.builder()
                 .status(HttpStatus.OK.value())
+                .data(company)
                 .message("Company updated")
                 .build();
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/{companyId}")
-    public ResponseEntity<ApiResponse<Company>> getCompanyById(@PathVariable Long companyId){
-        Company company = companyService.getCompanyById(companyId);
-        ApiResponse response = ApiResponse.builder()
-                .status(HttpStatus.OK.value())
-                .message("Get company by id success")
-                .build();
-        return ResponseEntity.ok(response);
-    }
+
     @DeleteMapping("/{companyId}")
     public ResponseEntity<ApiResponse<Void>> deleteCompany(@PathVariable Long companyId){
         companyService.deleteCompany(companyId);
         ApiResponse response = ApiResponse.builder()
                 .status(HttpStatus.OK.value())
+                .data(null)
                 .message("Company deleted")
                 .build();
         return ResponseEntity.ok(response);
