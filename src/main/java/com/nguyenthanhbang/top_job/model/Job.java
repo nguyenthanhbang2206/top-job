@@ -24,20 +24,20 @@ public class Job extends BaseEntity{
     private String location;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private double salary;
+    private long salary;
     private int quantity;
     private Instant startDate;
     private Instant endDate;
     private boolean active;
     @Enumerated(EnumType.STRING)
-    private EnumLevel level;
+    private JobLevel level;
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
     @OneToMany(mappedBy = "job", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Application> resumes;
+    private List<Application> applications;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"jobs"})
@@ -45,7 +45,7 @@ public class Job extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
-    public enum EnumLevel {
+    public enum JobLevel {
         INTERN, FRESHER, JUNIOR, MIDDLE,SENIOR
     }
 
