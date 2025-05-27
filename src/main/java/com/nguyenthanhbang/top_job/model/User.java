@@ -44,7 +44,7 @@ public class User extends BaseEntity {
         MALE, FEMALE, OTHER
     }
     public enum Role {
-        ADMIN, USER, EMPLOYER
+        ADMIN, USER
     }
 
 }
