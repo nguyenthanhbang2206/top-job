@@ -4,6 +4,7 @@ import com.nguyenthanhbang.top_job.dto.request.SkillRequest;
 import com.nguyenthanhbang.top_job.model.Skill;
 import com.nguyenthanhbang.top_job.repository.SkillRepository;
 import com.nguyenthanhbang.top_job.service.SkillService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Skill createSkill(SkillRequest request) {
+        if(skillRepository.existsByName(request.getName())) {
+            throw new EntityExistsException("Skills already exist");
+        }
         Skill skill = new Skill();
         skill.setName(request.getName());
         return skillRepository.save(skill);

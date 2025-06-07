@@ -8,4 +8,5 @@ import java.util.List;
 public interface SkillRepository extends JpaRepository<Skill, Long> {
     List<Skill> findByIdIn(List<Long> ids);
     List<Skill> findByNameIn(List<String> skills);
+    boolean existsByName(String name);
 }

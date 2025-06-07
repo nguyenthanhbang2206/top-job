@@ -4,11 +4,12 @@ import com.nguyenthanhbang.top_job.model.User;
 import com.nguyenthanhbang.top_job.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
-
+@RequiredArgsConstructor
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     private boolean checkExist;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -26,7 +27,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
         }else {
             if(checkExist) {
                 User user = userRepository.findByEmail(s);
-                if(user == null) {
+                if(user != null) {
                     constraintValidatorContext
                             .buildConstraintViolationWithTemplate("Email already exists")
                             .addConstraintViolation()

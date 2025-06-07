@@ -12,6 +12,4 @@ public class ApplicationRequest {
     private String url;
     @NotBlank(message = "Email must not be blank")
     private String email;
-    @NotNull(message = "User must not be null")
-    private User user;
 }
